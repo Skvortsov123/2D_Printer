@@ -1,18 +1,15 @@
-#include "MySD.h"
+#include "Printer.h"
 
-  SDcard SDa;
-
+Printer printer;
 
 void setup() {
   Serial.begin(9600);
-  SDa.setup();
+  printer.setup();
 }
 
 void loop() {
-  SDa.read();
-
+  printer.onTick();
 }
-
 
 
 //Data <- Manager -> Stepper

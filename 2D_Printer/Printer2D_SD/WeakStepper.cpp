@@ -1,7 +1,6 @@
-//#include "HardwareSerial.h"
+#include "HardwareSerial.h"
 #include "Arduino.h"
 #include "WeakStepper.h"
-
 
 
 WeakStepper::WeakStepper() {
@@ -51,19 +50,19 @@ void WeakStepper::move_zero() {
 
 
 
-void WeakStepper::move_to(float distance) {           //move (in millimeters)
+void WeakStepper::move_to(float distance) {  //move (in millimeters)
   _stepManager(distance * 1.25 / 6 * 4096);  //Thread pitch 0.8, gears 6/1, one rotatione = 4096 steps
 }
 
 
 void WeakStepper::_stepManager(long stepPosition) {
-  _flagRD = 0;  //Not ready for next command
+  _flagRD = false;  //Not ready for next command
 
   if (micros() < _timer1) {
     _timer1 = 0;
   }
 
-  if (_stepTick1 < stepPosition and micros() - (_calcRPM(_rpm) + _timer1) > 0) {
+  if (_stepTick1 < stepPosition and micros() - (_calcRPM(_rpm) + _timer1) >= 0) {
     _stepTick1++;
     _timer1 = micros();
     _step++;
@@ -72,7 +71,7 @@ void WeakStepper::_stepManager(long stepPosition) {
 
   }
 
-  if (_stepTick1 > stepPosition and micros() - (_calcRPM(_rpm) + _timer1) > 0) {
+  if (_stepTick1 > stepPosition and micros() - (_calcRPM(_rpm) + _timer1) >= 0) {
     _stepTick1--;
     _timer1 = micros();
     _step--; 
@@ -81,7 +80,7 @@ void WeakStepper::_stepManager(long stepPosition) {
   }
 
   if (_stepTick1 == stepPosition) {
-    _flagRD = 1;
+    _flagRD = true;
   }
 }
 

@@ -4,8 +4,8 @@
 
 int var = 0;
 Heartbeat heartbeat;
-WeakStepper motorX(9, 10, 11, 12);
-WeakStepper motorY(5, 6, 7, 8);
+WeakStepper motorX(A0, A1, A2, A3);
+WeakStepper motorY(9, 8, 7, 6);
 
 
 

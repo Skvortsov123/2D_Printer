@@ -1,13 +1,12 @@
-#include "Arduino.h"
 #ifndef WeakStepper_H
 #define WeakStepper_H
 
+
 class WeakStepper {
 public:
-
   WeakStepper();
   WeakStepper(int pin1, int pin2, int pin3, int pin4);
-  void setRPM(float rpm);  //Best RPM 5-20
+  void setRPM(float rpm); //Best RPM 5-20
   void move_zero(); //Moving  to zero position
   void move_to(float distance);  //Get coordinates in mm
   bool ready(); //Return true when ready
